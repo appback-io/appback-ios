@@ -1,0 +1,16 @@
+PODS:
+  - AppBack (0.1.0)
+
+DEPENDENCIES:
+  - AppBack (from `../`)
+
+EXTERNAL SOURCES:
+  AppBack:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AppBack: 9d61796117b10dc96740b8ee587e50ecded9c03d
+
+PODFILE CHECKSUM: b95484d10b890c1bd739f9827cc6c60265f10e18
+
+COCOAPODS: 1.8.4

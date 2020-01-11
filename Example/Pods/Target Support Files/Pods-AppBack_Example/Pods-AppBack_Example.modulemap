@@ -1,0 +1,6 @@
+framework module Pods_AppBack_Example {
+  umbrella header "Pods-AppBack_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

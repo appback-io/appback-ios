@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AppBack_Example' do
+  pod 'AppBack', :path => '../'
+
+  target 'AppBack_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
