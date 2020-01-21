@@ -21,16 +21,16 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/slozano95/AppBack'
+  s.homepage         = 'https://github.com/appback-io/appback-ios'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'slozano95' => 'slozano95@gmail.com' }
-  s.source           = { :git => 'https://github.com/slozano95/AppBack.git', :tag => s.version.to_s }
+  s.author           = { 'appback' => 'support@appback.io' }
+  s.source           = { :git => 'https://github.com/appback-io/appback-ios', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'AppBack/Classes/**/*'
+  s.source_files = 'Classes/**/*'
   
   # s.resource_bundles = {
   #   'AppBack' => ['AppBack/Assets/*.png']
