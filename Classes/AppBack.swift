@@ -16,23 +16,37 @@ public class AppBack {
     private var apiKey = ""
     private var translationsDelegate: AppBackTranslationsDelegate?
     
+    /// Configure AppBack
+    /// - Parameter apiKey: apiKey
     public func configure(apiKey: String) {
         self.apiKey = apiKey
     }
     
+    /// Define the translations delegate
+    /// - Parameter delegate: AppBackTranslationsDelegate
     public func setTranslationsDelegate(delegate: AppBackTranslationsDelegate) {
         self.translationsDelegate = delegate
     }
     
+    /// Define the toggles lifetime, after the lifetime the toggles will be refreshed automatically
+    /// - Parameter seconds: number of seconds of lifetime
     public func setTogglesLifetime(seconds: Int) {
         
     }
     
+    /// Fetch the translations from AppBack Core
+    /// - Parameters:
+    ///   - router: your appBack translation router
+    ///   - completion: executable after completed
     public func getTranslations(router: String, completion: @escaping (_ succeded: Bool) -> Void) {
         let service = AppBackNetworkService()
         service.parameters = ["router": router]
         service.endpoint = "/api/v1/translations"
-        service.callAppBackCore(modelType: AppBackTranslationsModel.self) { (status, model) in
+        service.callAppBackCore(modelType: AppBackTranslationsModel.self) { [weak self] (status, model) in
+            guard let self = self else {
+                completion(false)
+                return
+            }
             if status == .success {
                 self.saveTranslations(model: model)
                 completion(true)
@@ -42,11 +56,15 @@ public class AppBack {
         }
     }
     
+    /// Obtain a translation from cache
+    /// - Parameter key: translation key
     public func getTranslation(key: String) -> String {
         let model = loadTranslations()
         return model?.translations?.first(where: { $0.key == key})?.value ?? getDefaultTranslationValue(key: key)
     }
     
+    /// Obtain the default translation value for a key
+    /// - Parameter key: translation key
     public func getDefaultTranslationValue(key: String) -> String {
         let value = translationsDelegate?.getTranslationDefaultValue(key: key)
         if value == nil {
@@ -54,7 +72,11 @@ public class AppBack {
         }
         return value ?? ""
     }
-
+    
+    /// Fetches the feature toggles from AppBack Core
+    /// - Parameters:
+    ///   - router: your appBack translation router
+    ///   - completion: executable after completed
     public func getToggles(router: String, completion: @escaping (_ succeded: Bool) -> Void) {
         let service = AppBackNetworkService()
         service.parameters = ["router": router]
@@ -68,6 +90,13 @@ public class AppBack {
         }
     }
     
+    /// Adds an event log to AppBack Core
+    /// - Parameters:
+    ///   - router: your appback event router
+    ///   - eventName: event name
+    ///   - description: description of th event
+    ///   - logLevel: enumerable from AppBackEventLogLevel
+    ///   - completion: executable after execution
     public func addEventLog(router: String, eventName: String, description: String, logLevel: AppBackEventLogLevel, completion: @escaping (_ succeded: Bool) -> Void) {
         let service = AppBackNetworkService()
         service.parameters = ["router": router, "name": eventName, "description": description, "level": logLevel.rawValue]
@@ -82,6 +111,7 @@ public class AppBack {
         }
     }
     
+    /// Checks for AppBacks users defined apiKey
     internal func hasBeenInitialized() -> Bool {
         let ready = apiKey != ""
         if !ready {
@@ -90,14 +120,19 @@ public class AppBack {
         return ready
     }
     
+    /// Returns the user apikey
     internal func getApiKey() -> String {
         return apiKey
     }
     
+    /// Print on console formatted
+    /// - Parameter message: printable message
     internal func consolePrint(_ message: String) {
         print("[AppBack SDK] - \(message)")
     }
     
+    /// Stores the translations on cache
+    /// - Parameter model: AppBackTranslationsModel, optional
     internal func saveTranslations(model: AppBackTranslationsModel?) {
         guard let model = model else {
             return
@@ -107,6 +142,7 @@ public class AppBack {
         }
     }
     
+    /// Loads the translations on memory
     internal func loadTranslations() -> AppBackTranslationsModel? {
         guard let data = UserDefaults.standard.object(forKey: "io.appback.translations") as? Data else {
             return nil

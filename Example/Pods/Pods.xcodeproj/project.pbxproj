@@ -11,7 +11,6 @@
 		71447A37B0EE9044486705DE287346F8 /* AppBack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05FD594DE48BA8C81CE0AAA2F9968D /* AppBack-dummy.m */; };
 		8790621A60158B048E1F0EDF898AA140 /* Pods-AppBack_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DFB8FE08DA6068D0E2695BCB53825EF /* Pods-AppBack_Example-dummy.m */; };
 		8B1632CCEEC761F8AA3534413C0EAF47 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
-		B2E2D4600614C48431B251DAC49084B2 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDA58E8ADB3893E77745053D899F249 /* ReplaceMe.swift */; };
 		C8DF2E2A74F2F5DE9994D7F2878E1950 /* AppBack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E6783ADE58D2193842DA26E27FEFBB31 /* AppBack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C8E84C6E111BDDE718EDA05CAEC35674 /* Pods-AppBack_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1544938F3BB7F205F4AA057F1CD3D14F /* Pods-AppBack_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D14CFBF71EACFE01E727F200683F7B4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -80,7 +79,6 @@
 		F1D403D2AB97A16B5BCC8A7D8F5E8B67 /* Pods-AppBack_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AppBack_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F467400C25D7D5EB2EAFC6A649316C74 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FCAF79216AA5520F7CC9D3D145557B03 /* AppBack.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = AppBack.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		FCDA58E8ADB3893E77745053D899F249 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = AppBack/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				DE2EA7DF23C93E8F001BF80A /* Classes */,
-				FCDA58E8ADB3893E77745053D899F249 /* ReplaceMe.swift */,
 				0B0998031A77989C849284097984F525 /* Pod */,
 				F4894856EC1C41405D288A3AC630D017 /* Support Files */,
 			);
@@ -409,7 +406,6 @@
 				71447A37B0EE9044486705DE287346F8 /* AppBack-dummy.m in Sources */,
 				DE2EA7E723C93E8F001BF80A /* AppBack.swift in Sources */,
 				DE2EA7E823C93E8F001BF80A /* AppBackAccessTokenModel.swift in Sources */,
-				B2E2D4600614C48431B251DAC49084B2 /* ReplaceMe.swift in Sources */,
 				DE2EA7EC23C93E8F001BF80A /* AppBackTogglesModel.swift in Sources */,
 				DE2EA7EB23C93E8F001BF80A /* AppBackTranslationsModel.swift in Sources */,
 				DE2EA7E923C93E8F001BF80A /* AppBackEventLogModel.swift in Sources */,

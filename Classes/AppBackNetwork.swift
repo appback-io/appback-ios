@@ -8,9 +8,9 @@
 import Foundation
 internal enum AppBackHTTPMethod: String {
     case delete = "DELETE"
-    case get =  "GET"
-    case post =  "POST"
-    case patch =  "PATCH"
+    case get = "GET"
+    case post = "POST"
+    case patch = "PATCH"
     case put = "PUT"
 }
 internal enum AppBackNetworkServiceError: Error {
@@ -28,6 +28,7 @@ internal enum AppBackNetworkServiceStatus: Int {
     case fail
     case notFound
 }
+
 internal typealias AppBackNetworkServiceCompletion<T: Codable> = (AppBackNetworkServiceStatus, T?) -> Void
 
 internal class AppBackNetworkService {
@@ -145,7 +146,7 @@ internal class AppBackNetworkService {
     }
     
     private func handleRetry<T: Codable> (modelType: T.Type, completion: @escaping AppBackNetworkServiceCompletion<T>) {
-        if retryCount < 3  && retriable{
+        if retryCount < 3  && retriable {
             retryCount += 1
             callAppBackCore(modelType: modelType, completion: completion)
         } else {
