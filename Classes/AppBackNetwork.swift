@@ -64,7 +64,6 @@ internal class AppBackNetworkService {
                         return
                     }
                     if let availableData = data {
-                        print("data \(String(data: data ?? Data(), encoding: .utf8))")
                         if responseCode == 401 {
                             self.handleUnauthorizedResponse(modelType: modelType, completion: completion)
                         } else if (200...299).contains(responseCode) {
@@ -134,6 +133,7 @@ internal class AppBackNetworkService {
     private func prepareHeaders() {
         var requestHeaders = request.allHTTPHeaderFields ?? [:]
         let token = UserDefaults.standard.string(forKey: "io.appback.bearerToken") ?? ""
+        requestHeaders["Accept"] = "application/json"
         requestHeaders["Authorization"] = "Bearer " + token
         requestHeaders["Content-type"] = "application/json"
         requestHeaders["Connection"] = "close"
