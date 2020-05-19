@@ -38,9 +38,10 @@ public class AppBack {
     /// - Parameters:
     ///   - router: your appBack translation router
     ///   - completion: executable after completed
-    public func getTranslations(router: String, completion: @escaping (_ succeded: Bool) -> Void) {
+    public func getTranslations(router: String, lenguageIdentifier: String, completion: @escaping (_ succeded: Bool) -> Void) {
         let service = AppBackNetworkService()
-        service.parameters = ["router": router]
+        service.method = .get
+        service.parameters = ["language_identifier": lenguageIdentifier, "router": router]
         service.endpoint = "/api/v1/translations"
         service.callAppBackCore(modelType: AppBackTranslationsModel.self) { [weak self] (status, model) in
             guard let self = self else {

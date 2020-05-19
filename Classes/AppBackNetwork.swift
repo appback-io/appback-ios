@@ -114,7 +114,12 @@ internal class AppBackNetworkService {
     private func prepareURL(parametersInURL: Bool = false) throws -> URL {
         var components = URLComponents()
         components.scheme = "https"
-        let host = "appback.io"
+        var host = ""
+        if endpoint == "/api/token" {
+            host = "api-auth-sandbox.appback.io"
+        } else {
+            host = "api-sandbox.appback.io"
+        }
         components.host = host
         components.path = endpoint
         if components.path.contains("%@") {
@@ -169,7 +174,7 @@ internal class AppBackNetworkService {
     private func handleUnauthorizedResponse<T: Codable> (modelType: T.Type, completion: @escaping AppBackNetworkServiceCompletion<T>) {
         let service = AppBackNetworkService()
         service.endpoint = "/api/token"
-        service.method = .get
+        service.method = .post
         service.parameters = ["key": AppBack.shared.getApiKey()]
         service.retriable =  false
         service.callAppBackCore(modelType: AppBackAccessTokenModel.self) { (status, model) in
