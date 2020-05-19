@@ -44,6 +44,12 @@ internal class AppBackNetworkService {
         guard AppBack.shared.hasBeenInitialized() else {
             return
         }
+        
+        if endpoint != "/api/token", (UserDefaults.standard.value(forKey: "io.appback.baseURL") as? String) == nil {
+            self.handleUnauthorizedResponse(modelType: modelType, completion: completion)
+            return
+        }
+        
         do {
             try prepareRequest()
         } catch {
@@ -116,9 +122,9 @@ internal class AppBackNetworkService {
         components.scheme = "https"
         var host = ""
         if endpoint == "/api/token" {
-            host = "api-auth-sandbox.appback.io"
+            host = "api-auth.appback.io"
         } else {
-            host = "api-sandbox.appback.io"
+            host = UserDefaults.standard.string(forKey: "io.appback.baseURL") ?? ""
         }
         components.host = host
         components.path = endpoint
@@ -179,6 +185,8 @@ internal class AppBackNetworkService {
         service.retriable =  false
         service.callAppBackCore(modelType: AppBackAccessTokenModel.self) { (status, model) in
             if status == .success {
+                let baseURL = (model?.endpoint ?? "").replacingOccurrences(of: "https://", with: "")
+                UserDefaults.standard.set(baseURL, forKey: "io.appback.baseURL")
                 UserDefaults.standard.set(model?.accessToken ?? "", forKey: "io.appback.bearerToken")
                 self.callAppBackCore(modelType: modelType, completion: completion)
             } else {

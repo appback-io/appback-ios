@@ -14,18 +14,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AppBack.shared.configure(apiKey: "4s9aRhBfnqhnshvCEvJ42jf752ND7Q5xoz0Ym74OEEvsOlvbYl1589898531")
+        AppBack.shared.configure(apiKey: "RIvzTBbH7LnHsxBmomzogxov0B4lW7tumhho5jaTxLMjfAPv4t1589904786")
         AppBack.shared.getTranslations(router: "translations_jutilities", lenguageIdentifier: "es_CO") { (ready) in
-            
             if ready {
-                print("TODO OK")
+                let username = AppBack.shared.getTranslation(key: "general.userName")
+                print(username)
             } else {
                 print("NOUP")
             }
         }
         
-        let username = AppBack.shared.getTranslation(key: "general.userName")
-        print(username)
         
 //        AppBack.shared.getToggles(router: "ft_1") { (ready) in
 //            if ready {
@@ -45,7 +43,6 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func rgerg(_ sender: Any) {
