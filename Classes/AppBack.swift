@@ -96,7 +96,15 @@ public class AppBack {
     /// - Parameter key: translation key
     public func getBoolToggle(key: String) -> Bool? {
         let model = loadToggles()
-        return Bool(model?.toggles?.first(where: { $0.key == key})?.value ?? "false")
+        guard let value = model?.toggles?.first(where: { $0.key == key})?.value else {
+            return nil
+        }
+        if let boolean = Bool(value) {
+            return boolean
+        } else if let numericBoolean = Int(value) {
+            return numericBoolean == 1 ? true : false
+        }
+        return nil
     }
     
     /// Obtain an integer toogle from cache
@@ -136,9 +144,10 @@ public class AppBack {
     ///   - description: description of th event
     ///   - logLevel: enumerable from AppBackEventLogLevel
     ///   - completion: executable after execution
-    public func addEventLog(router: String, eventName: String, description: String, logLevel: AppBackEventLogLevel, completion: @escaping (_ succeded: Bool) -> Void) {
+    public func addEventLog(router: String, eventName: String, parameters: [[String: Any]], completion: @escaping (_ succeded: Bool) -> Void) {
         let service = AppBackNetworkService()
-        service.parameters = ["router": router, "name": eventName, "description": description, "level": logLevel.rawValue]
+        let time = Date().timeIntervalSince1970
+        service.parameters = ["router": router, "name": eventName, "time": time, "parameters": parameters]
         service.endpoint = "/api/v1/eventLog"
         service.method = .post
         service.callAppBackCore(modelType: AppBackEventLogModel.self) { (status, model) in
@@ -149,7 +158,7 @@ public class AppBack {
             }
         }
     }
-    
+     
     /// Checks for AppBacks users defined apiKey
     internal func hasBeenInitialized() -> Bool {
         let ready = apiKey != ""
