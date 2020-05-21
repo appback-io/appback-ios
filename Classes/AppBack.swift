@@ -144,10 +144,14 @@ public class AppBack {
     ///   - description: description of th event
     ///   - logLevel: enumerable from AppBackEventLogLevel
     ///   - completion: executable after execution
-    public func addEventLog(router: String, eventName: String, parameters: [[String: Any]], completion: @escaping (_ succeded: Bool) -> Void) {
+    public func addEventLog(router: String, eventName: String, parameters: [[String: Any]], deviceInformation: Bool = false, completion: @escaping (_ succeded: Bool) -> Void) {
         let service = AppBackNetworkService()
         let time = Date().timeIntervalSince1970
-        service.parameters = ["router": router, "name": eventName, "time": time, "parameters": parameters]
+        var parametersToSend = parameters
+        if deviceInformation {
+            parametersToSend.append(AppBackDeviceInformation.getDeviceParameter())
+        }
+        service.parameters = ["router": router, "name": eventName, "time": time, "parameters": parametersToSend]
         service.endpoint = "/api/v1/eventLog"
         service.method = .post
         service.callAppBackCore(modelType: AppBackEventLogModel.self) { (status, model) in
@@ -158,7 +162,7 @@ public class AppBack {
             }
         }
     }
-     
+    
     /// Checks for AppBacks users defined apiKey
     internal func hasBeenInitialized() -> Bool {
         let ready = apiKey != ""

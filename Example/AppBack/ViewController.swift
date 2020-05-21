@@ -9,12 +9,12 @@
 import UIKit
 import AppBack
 
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AppBack.shared.configure(apiKey: "RIvzTBbH7LnHsxBmomzogxov0B4lW7tumhho5jaTxLMjfAPv4t1589904786")
         
         
 //        AppBack.shared.getTranslations(router: "translations_jutilities", lenguageIdentifier: "es_CO") { (ready) in
@@ -35,16 +35,19 @@ class ViewController: UIViewController {
 //                print("noup 2")
 //            }
 //        }
-        
-        AppBack.shared.addEventLog(router: "events_prod", eventName: "user_loggin", parameters: [["key": "añañay", "value": "1233"]]) { (success) in
+        AppBack.shared.configure(apiKey: "RIvzTBbH7LnHsxBmomzogxov0B4lW7tumhho5jaTxLMjfAPv4t1589904786")
+        AppBack.shared.addEventLog(router: "events_prod", eventName: "user_loggin", parameters: [["key": "añañay", "value": "1233"]], deviceInformation: true) { (success) in
             if success {
                 print("todo OK 3")
             } else {
                 print("noup 3")
             }
         }
-        
+              
     }
+    
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,4 +57,6 @@ class ViewController: UIViewController {
         
     }
 }
+
+
 

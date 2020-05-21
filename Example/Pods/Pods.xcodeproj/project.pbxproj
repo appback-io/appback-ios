@@ -20,6 +20,7 @@
 		DE2EA7EA23C93E8F001BF80A /* AppBackNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2EA7E323C93E8F001BF80A /* AppBackNetwork.swift */; };
 		DE2EA7EB23C93E8F001BF80A /* AppBackTranslationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2EA7E523C93E8F001BF80A /* AppBackTranslationsModel.swift */; };
 		DE2EA7EC23C93E8F001BF80A /* AppBackTogglesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */; };
+		DEAB62772475FE390033932D /* AppBackDeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */; };
 		E2B1A522DC84DAE70DC47620A0129D73 /* Pods-AppBack_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 918AF85E85F43D1078E0EFB9462FE424 /* Pods-AppBack_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8CC7944C6E148950B3C012C93880578 /* Pods-AppBack_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 27810D2D1115F2F7F85D871A4C88691D /* Pods-AppBack_Tests-dummy.m */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		DE2EA7E323C93E8F001BF80A /* AppBackNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackNetwork.swift; sourceTree = "<group>"; };
 		DE2EA7E523C93E8F001BF80A /* AppBackTranslationsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackTranslationsModel.swift; sourceTree = "<group>"; };
 		DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackTogglesModel.swift; sourceTree = "<group>"; };
+		DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackDeviceInformation.swift; sourceTree = "<group>"; };
 		E6783ADE58D2193842DA26E27FEFBB31 /* AppBack-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AppBack-umbrella.h"; sourceTree = "<group>"; };
 		F1D403D2AB97A16B5BCC8A7D8F5E8B67 /* Pods-AppBack_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AppBack_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F467400C25D7D5EB2EAFC6A649316C74 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				DE2EA7E323C93E8F001BF80A /* AppBackNetwork.swift */,
 				DE2EA7E423C93E8F001BF80A /* Models */,
 				DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */,
+				DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71447A37B0EE9044486705DE287346F8 /* AppBack-dummy.m in Sources */,
+				DEAB62772475FE390033932D /* AppBackDeviceInformation.swift in Sources */,
 				DE2EA7E723C93E8F001BF80A /* AppBack.swift in Sources */,
 				DE2EA7E823C93E8F001BF80A /* AppBackAccessTokenModel.swift in Sources */,
 				DE2EA7EC23C93E8F001BF80A /* AppBackTogglesModel.swift in Sources */,
