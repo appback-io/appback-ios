@@ -149,7 +149,9 @@ public class AppBack {
         let time = Date().timeIntervalSince1970
         var parametersToSend = parameters
         if deviceInformation {
-            parametersToSend.append(AppBackDeviceInformation.getDeviceParameter())
+            for (key, value) in AppBackDeviceInformation.getDeviceParameter() {
+                parametersToSend.append([key: value])
+            }
         }
         service.parameters = ["router": router, "name": eventName, "time": time, "parameters": parametersToSend]
         service.endpoint = "/api/v1/eventLog"

@@ -208,11 +208,11 @@
 			children = (
 				DE2EA7E023C93E8F001BF80A /* AppBack.swift */,
 				DE2EA7E123C93E8F001BF80A /* AppBackAccessTokenModel.swift */,
+				DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */,
 				DE2EA7E223C93E8F001BF80A /* AppBackEventLogModel.swift */,
 				DE2EA7E323C93E8F001BF80A /* AppBackNetwork.swift */,
-				DE2EA7E423C93E8F001BF80A /* Models */,
 				DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */,
-				DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */,
+				DE2EA7E423C93E8F001BF80A /* Models */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

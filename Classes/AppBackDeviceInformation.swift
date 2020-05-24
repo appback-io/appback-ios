@@ -9,27 +9,30 @@ import Foundation
 import SystemConfiguration
 import CoreTelephony
 
+/// Provide device information to send to event logs
 class AppBackDeviceInformation {
     
-    static func getDeviceParameter() -> [String: Any] {
+    /// Prepare device information to event logs
+    /// - Returns: Device information dictionary
+    static func getDeviceParameter() -> [String: String] {
 
         var parameters: [String: String] = [:]
 
-        UIDevice.current.isBatteryMonitoringEnabled = true // prender el monitor de batería
+        UIDevice.current.isBatteryMonitoringEnabled = true
         let networkInfo = CTTelephonyNetworkInfo()
         let carrier = networkInfo.subscriberCellularProvider
         
-        parameters["Device"] = UIDevice().type.rawValue //phone type ex. Iphone X
-        parameters["System Versión"] = UIDevice.current.systemVersion // version ex. 13.4.1
-        parameters["App Version"] = version()
-        parameters["Orientation"] = UIApplication.shared.statusBarOrientation.isLandscape ? "Landscape" : "Portrait"
-        parameters["Device ID"] = UIDevice.current.identifierForVendor?.uuidString
-        parameters["Battery level"] = "\(Int(UIDevice.current.batteryLevel * 100)) %"
-        parameters["Carrier"] = carrier?.carrierName ?? "Unknown"
-        parameters["Storage"] = getFreeSize()
+        parameters["_device"] = UIDevice().type.rawValue
+        parameters["_system_versión"] = UIDevice.current.systemVersion
+        parameters["_app_version"] = version()
+        parameters["_orientation"] = UIApplication.shared.statusBarOrientation.isLandscape ? "Landscape" : "Portrait"
+        parameters["_device_ID"] = UIDevice.current.identifierForVendor?.uuidString
+        parameters["_battery_level"] = "\(Int(UIDevice.current.batteryLevel * 100)) %"
+        parameters["_carrier"] = carrier?.carrierName ?? "Unknown"
+        parameters["_storage"] = getFreeSize()
         
         if #available(iOS 12.0, *) {
-            parameters["Connection type"] = getConnectionType() // 4G or Wifi or 3G
+            parameters["_connection_type"] = getConnectionType()
         }
         
         return parameters
@@ -72,12 +75,16 @@ class AppBackDeviceInformation {
         }
     }
     
+    /// Free device storage
+    /// - Returns: String with free space and total space
     static func getFreeSize() -> String {
         let displaySize = ByteCountFormatter().string(fromByteCount: UIDevice.current.systemFreeSize!)
         let displaySizeTotal = ByteCountFormatter().string(fromByteCount: UIDevice.current.systemSize!)
         return "\(displaySize) / \(displaySizeTotal)"
     }
     
+    /// Creates a string with app and build version
+    /// - Returns: App and build version
     static func version() -> String {
         let dictionary = Bundle.main.infoDictionary
         let version = dictionary?["CFBundleShortVersionString"] as? String ?? ""
@@ -87,26 +94,7 @@ class AppBackDeviceInformation {
     
 }
 
-extension UIDevice {
-    var systemSize: Int64? {
-        guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
-            let totalSize = (systemAttributes[.systemSize] as? NSNumber)?.int64Value else {
-                return nil
-        }
-
-        return totalSize
-    }
-
-    var systemFreeSize: Int64? {
-        guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
-            let freeSize = (systemAttributes[.systemFreeSize] as? NSNumber)?.int64Value else {
-                return nil
-        }
-
-        return freeSize
-    }
-}
-
+// MARK: - Device type enum model
 enum Model : String {
     //Simulator
     case simulator     = "simulator/sandbox",
@@ -174,11 +162,24 @@ enum Model : String {
     unrecognized       = "?unrecognized?"
 }
 
-// #-#-#-#-#-#-#-#-#-#-#-#-#
-// MARK: UIDevice extensions
-// #-#-#-#-#-#-#-#-#-#-#-#-#
-
+// MARK: - UIDevice extensions
 extension UIDevice {
+    
+    var systemSize: Int64? {
+        guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
+            let totalSize = (systemAttributes[.systemSize] as? NSNumber)?.int64Value else {
+                return nil
+        }
+        return totalSize
+    }
+
+    var systemFreeSize: Int64? {
+        guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
+            let freeSize = (systemAttributes[.systemFreeSize] as? NSNumber)?.int64Value else {
+                return nil
+        }
+        return freeSize
+    }
     
     var type: Model {
         var systemInfo = utsname()
