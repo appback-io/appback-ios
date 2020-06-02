@@ -9,8 +9,10 @@ import Foundation
 
 internal class AppBackEventLogModel: Codable {
     let code: Int?
+    let message: String?
     
-    init(code: Int?) {
+    init(code: Int?, message: String?) {
         self.code = code
+        self.message = message
     }
 }

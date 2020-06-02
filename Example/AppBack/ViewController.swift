@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         
         
         
-        AppBack.shared.getTranslations(router: "translations_jutilities", lenguageIdentifier: "es_CO") { (ready) in
+        AppBack.shared.getTranslations(router: "translations_jutilities", languageIdentifier: "es_CO") { (ready) in
             if ready {
                 let username = AppBack.shared.getTranslation(key: "general.userName")
                 print(username)
@@ -35,7 +35,6 @@ class ViewController: UIViewController {
                 print("noup 2")
             }
         }
-        AppBack.shared.configure(apiKey: "RIvzTBbH7LnHsxBmomzogxov0B4lW7tumhho5jaTxLMjfAPv4t1589904786")
         AppBack.shared.addEventLog(router: "events_prod", eventName: "user_loggin", parameters: [["key": "añañay"], ["value": "1233"]], deviceInformation: true) { (success) in
             if success {
                 print("todo OK 3")

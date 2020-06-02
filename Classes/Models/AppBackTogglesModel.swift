@@ -9,9 +9,11 @@ import Foundation
 
 internal class AppBackTogglesModel: Codable {
     let toggles: [AppBackToggleModel]?
-
-    init(toggles: [AppBackToggleModel]?) {
+    let message: String?
+    
+    init(toggles: [AppBackToggleModel]?, message: String?) {
         self.toggles = toggles
+        self.message = message
     }
 }
 

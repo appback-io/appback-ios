@@ -9,8 +9,11 @@ import Foundation
 
 internal class AppBackTranslationsModel: Codable {
     let translations: [AppBackTranslationModel]?
-    init(translations: [AppBackTranslationModel]?) {
+    let message: String?
+    
+    init(translations: [AppBackTranslationModel]?, message: String?) {
         self.translations = translations
+        self.message = message
     }
 }
 

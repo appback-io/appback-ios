@@ -8,7 +8,6 @@
 import Foundation
 
 extension AppBack {
-    
     /// Fetches the feature toggles from AppBack Core
     /// - Parameters:
     ///   - router: your appBack translation router
@@ -17,7 +16,11 @@ extension AppBack {
         let service = AppBackNetworkService()
         service.parameters = [.router: router]
         service.endpoint = .getFeatureToggles
-        service.callAppBackCore(modelType: AppBackTogglesModel.self) { (status, model) in
+        service.callAppBackCore(modelType: AppBackTogglesModel.self) { [weak self] (status, model) in
+            guard let self = self else {
+                completion(false)
+                return
+            }
             if status == .success {
                 self.saveToggles(model: model)
                 completion(true)
@@ -52,7 +55,7 @@ extension AppBack {
         return Int(value)
     }
     
-    /// Obtain an integer toogle from cache
+    /// Obtain a double toogle from cache
     /// - Parameter key: translation key
     public func getDoubleToggle(key: String) -> Double? {
         let model = loadToggles()
@@ -62,7 +65,7 @@ extension AppBack {
         return Double(value)
     }
     
-    /// Obtain an integer toogle from cache
+    /// Obtain a string toogle from cache
     /// - Parameter key: translation key
     public func getStringToggle(key: String) -> String? {
         let model = loadToggles()

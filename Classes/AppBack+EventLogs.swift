@@ -28,7 +28,7 @@ extension AppBack {
         service.parameters = [.router: router, .name: eventName, .time: time, .parameters: parametersToSend]
         service.endpoint = .addEventLog
         service.method = .post
-        service.callAppBackCore(modelType: AppBackEventLogModel.self) { (status, model) in
+        service.callAppBackCore(modelType: AppBackEventLogModel.self) {(status, model) in
             if status == .success {
                 completion(true)
             } else {

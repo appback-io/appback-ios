@@ -72,7 +72,11 @@ internal class AppBackNetworkService {
 
     private func preparePOSTParameters() throws {
         do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            var jsonParameters: [String: Any] = [:]
+            parameters.forEach { (key: AppBackParameter, value: Any) in
+                jsonParameters[key.rawValue] = value
+            }
+            request.httpBody = try JSONSerialization.data(withJSONObject: jsonParameters, options: .prettyPrinted)
         } catch {
             throw(AppBackNetworkServiceError.notParsedParameters)
         }
