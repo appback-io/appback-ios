@@ -6,37 +6,16 @@
 //
 
 import Foundation
-internal enum AppBackHTTPMethod: String {
-    case delete = "DELETE"
-    case get = "GET"
-    case post = "POST"
-    case patch = "PATCH"
-    case put = "PUT"
-}
-internal enum AppBackNetworkServiceError: Error {
-    case decodingError
-    case invalidURL
-    case notKnownResponseCode
-    case notParsedParameters
-    case refreshTokenFailed
-    case retryFailed
-    case unpreparableRequest
-}
-
-internal enum AppBackNetworkServiceStatus: Int {
-    case success
-    case fail
-    case notFound
-}
 
 internal typealias AppBackNetworkServiceCompletion<T: Codable> = (AppBackNetworkServiceStatus, T?) -> Void
 
 internal class AppBackNetworkService {
-    internal var endpoint = ""
+    
+    internal var endpoint: AppBackAPIEndpoint = .none
     internal var headers: [String: String] = [:]
     internal var method: AppBackHTTPMethod = .get
-    internal var parameters: [String: Any] = [:]
-    internal var request: URLRequest = URLRequest(url: URL(fileURLWithPath: ""))
+    internal var parameters: [AppBackParameter: Any] = [:]
+    internal var request: URLRequest = URLRequest(url: URL(fileURLWithPath: AppBackStrings.empty))
     internal var retriable = true
     internal var retryCount = 0
 
@@ -45,7 +24,7 @@ internal class AppBackNetworkService {
             return
         }
         
-        if endpoint != "/api/token", (UserDefaults.standard.value(forKey: "io.appback.baseURL") as? String) == nil {
+        if endpoint != .auth, (UserDefaults.standard.value(forKey: AppBackUserDefaultsKey.baseURL.rawValue) as? String) == nil {
             self.handleUnauthorizedResponse(modelType: modelType, completion: completion)
             return
         }
@@ -75,7 +54,7 @@ internal class AppBackNetworkService {
                         } else if (200...299).contains(responseCode) {
                             try self.handleSuccessResponse(modelType: modelType, data: availableData, completion: completion)
                         } else if responseCode == 404 {
-                            AppBack.shared.consolePrint("Resource couldn't be found, please check the parameters")
+                            AppBack.shared.consolePrint(AppBackErrors.notFound.rawValue)
                             completion(.notFound, nil)
                         } else {
                             completion(.fail, nil)
@@ -119,20 +98,20 @@ internal class AppBackNetworkService {
 
     private func prepareURL(parametersInURL: Bool = false) throws -> URL {
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = AppBackHTTPProtocol.https.rawValue
         var host = ""
-        if endpoint == "/api/token" {
-            host = "api-auth.appback.io"
+        if endpoint == .auth {
+            host = AppBackHost.apiAuth.rawValue
         } else {
-            host = UserDefaults.standard.string(forKey: "io.appback.baseURL") ?? ""
+            host = UserDefaults.standard.string(forKey: AppBackUserDefaultsKey.baseURL.rawValue) ?? AppBackStrings.empty
         }
         components.host = host
-        components.path = endpoint
+        components.path = endpoint.rawValue
         if components.path.contains("%@") {
             parameters.forEach({ components.path = components.path.replacingOccurrences(of: "%@\($0.key)", with: "\($0.value)") })
         }
         if parametersInURL {
-            components.queryItems = parameters.compactMap({return URLQueryItem(name: $0.key, value: "\($0.value)")})
+            components.queryItems = parameters.compactMap({return URLQueryItem(name: $0.key.rawValue, value: "\($0.value)")})
         }
         if let url = components.url {
             return url
@@ -143,12 +122,12 @@ internal class AppBackNetworkService {
     
     private func prepareHeaders() {
         var requestHeaders = request.allHTTPHeaderFields ?? [:]
-        let token = UserDefaults.standard.string(forKey: "io.appback.bearerToken") ?? ""
-        requestHeaders["Accept"] = "application/json"
-        requestHeaders["Authorization"] = "Bearer " + token
-        requestHeaders["Content-type"] = "application/json"
-        requestHeaders["Connection"] = "close"
-        requestHeaders["User-Agent"] = ""
+        let token = UserDefaults.standard.string(forKey: AppBackUserDefaultsKey.bearerToken.rawValue) ?? AppBackStrings.empty
+        requestHeaders[AppBackHeader.accept.rawValue] = "application/json"
+        requestHeaders[AppBackHeader.authorization.rawValue] = "Bearer " + token
+        requestHeaders[AppBackHeader.contentType.rawValue] = "application/json"
+        requestHeaders[AppBackHeader.connection.rawValue] = "close"
+        requestHeaders[AppBackHeader.userAgent.rawValue] = "AppBack iOS SDK"
         
         headers.forEach { (key: String, value: String) in
             requestHeaders[key] = value
@@ -179,18 +158,18 @@ internal class AppBackNetworkService {
     
     private func handleUnauthorizedResponse<T: Codable> (modelType: T.Type, completion: @escaping AppBackNetworkServiceCompletion<T>) {
         let service = AppBackNetworkService()
-        service.endpoint = "/api/token"
+        service.endpoint = .auth
         service.method = .post
-        service.parameters = ["key": AppBack.shared.getApiKey()]
+        service.parameters = [AppBackParameter.key: AppBack.shared.getApiKey()]
         service.retriable =  false
         service.callAppBackCore(modelType: AppBackAccessTokenModel.self) { (status, model) in
             if status == .success {
-                let baseURL = (model?.endpoint ?? "").replacingOccurrences(of: "https://", with: "")
-                UserDefaults.standard.set(baseURL, forKey: "io.appback.baseURL")
-                UserDefaults.standard.set(model?.accessToken ?? "", forKey: "io.appback.bearerToken")
+                let baseURL = (model?.endpoint ?? AppBackStrings.empty).replacingOccurrences(of: "https://", with: AppBackStrings.empty)
+                UserDefaults.standard.set(baseURL, forKey: AppBackUserDefaultsKey.baseURL.rawValue)
+                UserDefaults.standard.set(model?.accessToken ?? AppBackStrings.empty, forKey: AppBackUserDefaultsKey.bearerToken.rawValue)
                 self.callAppBackCore(modelType: modelType, completion: completion)
             } else {
-                AppBack.shared.consolePrint("Couldn't authenticate with AppBack Core, please check you ApiKey")
+                AppBack.shared.consolePrint(AppBackErrors.notAuthenticated.rawValue)
                 completion(.fail, nil)
             }
         }

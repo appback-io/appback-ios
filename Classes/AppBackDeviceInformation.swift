@@ -22,17 +22,17 @@ class AppBackDeviceInformation {
         let networkInfo = CTTelephonyNetworkInfo()
         let carrier = networkInfo.subscriberCellularProvider
         
-        parameters["_device"] = UIDevice().type.rawValue
-        parameters["_system_versión"] = UIDevice.current.systemVersion
-        parameters["_app_version"] = version()
-        parameters["_orientation"] = UIApplication.shared.statusBarOrientation.isLandscape ? "Landscape" : "Portrait"
-        parameters["_device_ID"] = UIDevice.current.identifierForVendor?.uuidString
-        parameters["_battery_level"] = "\(Int(UIDevice.current.batteryLevel * 100)) %"
-        parameters["_carrier"] = carrier?.carrierName ?? "Unknown"
-        parameters["_storage"] = getFreeSize()
+        parameters[AppBackEventParameter.device.rawValue] = UIDevice().type.rawValue
+        parameters[AppBackEventParameter.systemVersion.rawValue] = UIDevice.current.systemVersion
+        parameters[AppBackEventParameter.appVersion.rawValue] = version()
+        parameters[AppBackEventParameter.orientation.rawValue] = UIApplication.shared.statusBarOrientation.isLandscape ? "Landscape" : "Portrait"
+        parameters[AppBackEventParameter.deviceID.rawValue] = UIDevice.current.identifierForVendor?.uuidString
+        parameters[AppBackEventParameter.batteryLevel.rawValue] = "\(Int(UIDevice.current.batteryLevel * 100)) %"
+        parameters[AppBackEventParameter.carrier.rawValue] = carrier?.carrierName ?? "Unknown"
+        parameters[AppBackEventParameter.storage.rawValue] = getFreeSize()
         
         if #available(iOS 12.0, *) {
-            parameters["_connection_type"] = getConnectionType()
+            parameters[AppBackEventParameter.connectionType.rawValue] = getConnectionType()
         }
         
         return parameters
