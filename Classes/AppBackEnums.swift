@@ -38,6 +38,7 @@ internal enum AppBackHost: String {
 }
 internal enum AppBackAPIEndpoint: String {
     case getFeatureToggles = "/api/v1/toggles"
+    case getLanguages = "/api/v1/translations/languages"
     case getTranslations = "/api/v1/translations"
     case addEventLog = "/api/v1/eventLog"
     case none = ""

@@ -16,9 +16,9 @@ extension AppBack {
     ///   - description: description of th event
     ///   - logLevel: enumerable from AppBackEventLogLevel
     ///   - completion: executable after execution
-    public func addEventLog(router: String, eventName: String, parameters: [[String: Any]], deviceInformation: Bool = false, completion: @escaping (_ succeded: Bool) -> Void) {
+    public func addEventLog(router: String, eventName: String, parameters: [[String: Any]], deviceInformation: Bool = false, completion: @escaping (_ succeded: Bool, _ parameters: [[String: Any]]?) -> Void) {
         let service = AppBackNetworkService()
-        let time = Date().timeIntervalSince1970
+        let time = Int64(Date().timeIntervalSince1970)
         var parametersToSend = parameters
         if deviceInformation {
             for (key, value) in AppBackDeviceInformation.getDeviceParameter() {
@@ -30,9 +30,9 @@ extension AppBack {
         service.method = .post
         service.callAppBackCore(modelType: AppBackEventLogModel.self) {(status, model) in
             if status == .success {
-                completion(true)
+                completion(true, parametersToSend)
             } else {
-                completion(false)
+                completion(false, nil)
             }
         }
     }

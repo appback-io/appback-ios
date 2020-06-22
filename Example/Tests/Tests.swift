@@ -1,5 +1,5 @@
 import XCTest
-import AppBack
+@testable import AppBack
 
 class Tests: XCTestCase {
     

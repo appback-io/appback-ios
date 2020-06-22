@@ -9,6 +9,22 @@ import Foundation
 
 extension AppBack {
     
+    /// Obtain all languages availables in specific router
+    /// - Parameter router: your appBack translation router
+    public func getLanguages(router: String, completion: @escaping (_ success: Bool, _ languages: [AppBackLanguageModel]?) -> Void) {
+        let service = AppBackNetworkService()
+        service.method = .get
+        service.parameters = [.router: router]
+        service.endpoint = AppBackAPIEndpoint.getLanguages
+        service.callAppBackCore(modelType: AppBackLanguagesModel.self) { (status, model) in
+            if status == .success, let languages = model?.languages {
+                completion(true, languages)
+            } else {
+                completion(false, nil)
+            }
+        }
+    }
+    
     /// Fetch the translations from AppBack Core
     /// - Parameters:
     ///   - router: your appBack translation router

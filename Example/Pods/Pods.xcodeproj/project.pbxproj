@@ -20,6 +20,7 @@
 		DE2EA7EA23C93E8F001BF80A /* AppBackNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2EA7E323C93E8F001BF80A /* AppBackNetwork.swift */; };
 		DE2EA7EB23C93E8F001BF80A /* AppBackTranslationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2EA7E523C93E8F001BF80A /* AppBackTranslationsModel.swift */; };
 		DE2EA7EC23C93E8F001BF80A /* AppBackTogglesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */; };
+		DE36C3D824A104CD0073E575 /* AppBackLanguagesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE36C3D724A104CD0073E575 /* AppBackLanguagesModel.swift */; };
 		DEAB62772475FE390033932D /* AppBackDeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */; };
 		DEF722E72485CACB00F73531 /* AppBack+FeatureToggles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF722E62485CACB00F73531 /* AppBack+FeatureToggles.swift */; };
 		DEF722E92485CB5500F73531 /* AppBack+Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF722E82485CB5500F73531 /* AppBack+Translations.swift */; };
@@ -80,6 +81,7 @@
 		DE2EA7E323C93E8F001BF80A /* AppBackNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackNetwork.swift; sourceTree = "<group>"; };
 		DE2EA7E523C93E8F001BF80A /* AppBackTranslationsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackTranslationsModel.swift; sourceTree = "<group>"; };
 		DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppBackTogglesModel.swift; sourceTree = "<group>"; };
+		DE36C3D724A104CD0073E575 /* AppBackLanguagesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackLanguagesModel.swift; sourceTree = "<group>"; };
 		DEAB62762475FE390033932D /* AppBackDeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackDeviceInformation.swift; sourceTree = "<group>"; };
 		DEF722E62485CACB00F73531 /* AppBack+FeatureToggles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppBack+FeatureToggles.swift"; sourceTree = "<group>"; };
 		DEF722E82485CB5500F73531 /* AppBack+Translations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppBack+Translations.swift"; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				DE2EA7E623C93E8F001BF80A /* AppBackTogglesModel.swift */,
 				DE2EA7E523C93E8F001BF80A /* AppBackTranslationsModel.swift */,
 				DE2EA7E223C93E8F001BF80A /* AppBackEventLogModel.swift */,
+				DE36C3D724A104CD0073E575 /* AppBackLanguagesModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				DE2EA7E823C93E8F001BF80A /* AppBackAccessTokenModel.swift in Sources */,
 				DE2EA7EC23C93E8F001BF80A /* AppBackTogglesModel.swift in Sources */,
 				DE2EA7EB23C93E8F001BF80A /* AppBackTranslationsModel.swift in Sources */,
+				DE36C3D824A104CD0073E575 /* AppBackLanguagesModel.swift in Sources */,
 				DEF722EB2485CD3900F73531 /* AppBack+EventLogs.swift in Sources */,
 				DE2EA7E923C93E8F001BF80A /* AppBackEventLogModel.swift in Sources */,
 				DEF722E92485CB5500F73531 /* AppBack+Translations.swift in Sources */,
