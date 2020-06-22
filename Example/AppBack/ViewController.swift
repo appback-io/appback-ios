@@ -32,6 +32,10 @@ class ViewController: UIViewController {
         sendDeviceInformation = sender.isOn
     }
     
+    @IBAction func setEventButtonTapped(_ sender: UIButton) {
+        sendEventLogExample()
+    }
+    
     /// Sends event log
     func sendEventLogExample() {
         
