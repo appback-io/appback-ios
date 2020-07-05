@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AppBack'
-  s.version          = '0.2.0'
+  s.version          = '1.0'
   s.summary          = 'AppBack client'
   s.description      = <<-DESC
   Easy way to implement AppBack.io API using an iOS app with swift
