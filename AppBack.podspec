@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   Easy way to implement AppBack.io API using an iOS app with swift
                        DESC
 
-  s.homepage         = 'https://github.com/appback-io/appback-ios'
+  s.homepage         = 'https://appback.io/'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'appback' => 'support@appback.io' }
